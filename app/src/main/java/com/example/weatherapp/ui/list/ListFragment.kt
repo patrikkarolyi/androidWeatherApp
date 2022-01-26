@@ -29,12 +29,16 @@ class ListFragment : Fragment(), WeatherListAdapter.Listener {
         viewModel.weather.observe(viewLifecycleOwner, { weather ->
             adapter.submitList(listOf(weather))
         })
+
+
+        binding.searchButton.setOnClickListener {
+            viewModel.getWeatherOf(binding.searchEditText.text.toString())
+        }
         binding.recyclerView.adapter = adapter
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.getWeatherOf()
     }
 
     override fun onItemSelected(id: Int) {

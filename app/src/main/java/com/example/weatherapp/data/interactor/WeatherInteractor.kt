@@ -6,9 +6,9 @@ import javax.inject.Inject
 
 class WeatherInteractor @Inject constructor(
     private val networkDataSource: NetworkDataSource
-){
+) {
 
-    suspend fun getWeather(): WeatherData  {
-        return networkDataSource.getWeatherByCity()
+    suspend fun getWeatherOf(city: String): WeatherData? {
+        return networkDataSource.getWeatherByCity(city)
     }
 }

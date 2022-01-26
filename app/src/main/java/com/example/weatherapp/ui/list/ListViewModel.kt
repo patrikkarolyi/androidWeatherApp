@@ -18,12 +18,16 @@ class ListViewModel @Inject constructor(
 
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main)
     private var job: Job? = null
-    val weather = MutableLiveData<WeatherData>()
+    val weather = MutableLiveData<WeatherData?>()
 
-    fun getWeatherOf() {
+    fun getWeatherOf(city: String) {
         job?.cancel()
         job = scope.launch {
-            weather.value = weatherInteractor.getWeather()
+            val data = weatherInteractor.getWeatherOf(city)
+            data?.let {
+                weather.value = data
+            }
+            ///TODO error handling
         }
     }
 }
