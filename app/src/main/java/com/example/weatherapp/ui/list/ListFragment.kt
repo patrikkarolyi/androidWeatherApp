@@ -1,12 +1,16 @@
 package com.example.weatherapp.ui.list
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.databinding.ListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,16 +29,33 @@ class ListFragment : Fragment(), WeatherListAdapter.Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[ListViewModel::class.java]
-        adapter = WeatherListAdapter(this)
+        initEditText()
+        initRecyclerView()
         viewModel.weather.observe(viewLifecycleOwner, { weather ->
-            adapter.submitList(listOf(weather))
+            adapter.submitList(adapter.currentList.plus(weather))
         })
+    }
 
-
-        binding.searchButton.setOnClickListener {
-            viewModel.getWeatherOf(binding.searchEditText.text.toString())
+    private fun initRecyclerView() {
+        adapter = WeatherListAdapter(this)
+        (binding.recyclerView.layoutManager as LinearLayoutManager).apply {
+            reverseLayout = true;
+            stackFromEnd = true;
         }
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun initEditText() {
+        binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                viewModel.getWeatherOf(binding.searchEditText.text.toString())
+                binding.searchEditText.text?.clear()
+                (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view?.windowToken, 0)
+                true
+            } else {
+                false
+            }
+        }
     }
 
     override fun onResume() {
