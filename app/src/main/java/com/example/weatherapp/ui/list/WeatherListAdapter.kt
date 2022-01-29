@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.weatherapp.data.network.model.WeatherData
+import com.example.weatherapp.data.datasource.model.RoomWeatherData
 import com.example.weatherapp.databinding.WeatherItemBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WeatherListAdapter(val listener: Listener) : ListAdapter<WeatherData, WeatherListAdapter.ViewHolder>(WeatherDiffUtil()) {
+class WeatherListAdapter(val listener: Listener) : ListAdapter<RoomWeatherData, WeatherListAdapter.ViewHolder>(WeatherDiffUtil()) {
 
     val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.getDefault());
 
@@ -23,12 +23,12 @@ class WeatherListAdapter(val listener: Listener) : ListAdapter<WeatherData, Weat
     }
 
     inner class ViewHolder(private val binding: WeatherItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: WeatherData) {
+        fun bind(item: RoomWeatherData) {
             val name = "City: ${item.name}"
-            val tempRange = if (item.main.temp_min != item.main.temp_max) "(${item.main.temp_min}C° - ${item.main.temp_max}C°)" else ""
-            val temp = "Temperature: ${item.main.temp}C° $tempRange"
-            val wind = "Windiness: ${item.wind.speed}Km/h (${item.wind.deg} deg)"
-            val cloud = "Cloudiness: ${item.clouds}%"
+            val tempRange = if (item.main_temp_min != item.main_temp_max) "(${item.main_temp_min}C° - ${item.main_temp_max}C°)" else ""
+            val temp = "Temperature: ${item.main_temp}C° $tempRange"
+            val wind = "Windiness: ${item.wind_speed}Km/h (${item.wind_deg} deg)"
+            val cloud = "Cloudiness: ${item.cloudPercent}%"
             val dateTime = formatter.format(Date(item.timestamp))
 
             binding.name.text = name

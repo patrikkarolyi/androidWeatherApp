@@ -32,7 +32,7 @@ class ListFragment : Fragment(), WeatherListAdapter.Listener {
         initEditText()
         initRecyclerView()
         viewModel.weather.observe(viewLifecycleOwner, { weather ->
-            adapter.submitList(adapter.currentList.plus(weather))
+            adapter.submitList(weather)
         })
     }
 
@@ -60,6 +60,7 @@ class ListFragment : Fragment(), WeatherListAdapter.Listener {
 
     override fun onResume() {
         super.onResume()
+        viewModel.getLocalWeathers()
     }
 
     override fun onItemSelected(id: Int) {

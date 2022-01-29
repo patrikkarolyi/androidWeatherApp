@@ -1,30 +1,23 @@
 package com.example.weatherapp.data.network
 
+import android.content.Context
 import com.example.weatherapp.data.network.model.WeatherData
+import com.example.weatherapp.data.network.util.NetworkResponse
+import com.example.weatherapp.data.network.util.executeNetworkCall
 import javax.inject.Inject
 
 class NetworkDataSource @Inject constructor(
-    private val weatherAPI: WeatherAPI
+    private val weatherAPI: WeatherAPI,
+    private val  context: Context
 ) {
 
-    companion object {
-        const val baseUrl = "https://api.openweathermap.org/"
-        const val API_KEY = "f397c659323666d3a70df7e69eb4a7b3"
-    }
-
-    suspend fun getWeatherByCity(
-        city: String
-    ): WeatherData? {
-        return try{
+    suspend fun getWeatherByCity( city: String ): NetworkResponse<WeatherData> =
+        executeNetworkCall(context) {
             weatherAPI.getWeatherDataOfCity(
-                apiKey = API_KEY,
+                apiKey = WeatherAPI.API_KEY,
                 city = city,
                 unit = "metric"
             )
-        }catch (e: Exception){
-            ///TODO error handling
-            null
         }
 
-    }
 }

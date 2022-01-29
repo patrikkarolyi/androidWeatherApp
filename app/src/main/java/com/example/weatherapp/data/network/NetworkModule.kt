@@ -14,7 +14,7 @@ class NetworkModule {
 
     @Provides
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl(NetworkDataSource.baseUrl)
+        .baseUrl(WeatherAPI.baseUrl)
         .client(OkHttpClient())
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
