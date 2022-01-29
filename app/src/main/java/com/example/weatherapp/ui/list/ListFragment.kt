@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.databinding.ListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,6 +66,10 @@ class ListFragment : Fragment(), WeatherListAdapter.Listener {
     }
 
     override fun onItemSelected(id: Int) {
-        Toast.makeText(requireContext(), "Id: $id", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(
+            ListFragmentDirections.actionListFragmentToDetailsFragment(
+                weatherId = id
+            )
+        )
     }
 }

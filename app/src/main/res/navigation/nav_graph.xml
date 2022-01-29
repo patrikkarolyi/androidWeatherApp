@@ -20,7 +20,7 @@
         android:label="details_fragment"
         tools:layout="@layout/details_fragment" >
         <argument
-            android:name="movieId"
+            android:name="weatherId"
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>

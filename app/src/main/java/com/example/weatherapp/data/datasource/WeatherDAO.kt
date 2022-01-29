@@ -11,10 +11,13 @@ interface WeatherDAO {
     @Query("SELECT * FROM weathers")
     fun getAllWeathersAndReports(): List<WeatherDataWithReports>
 
+    @Transaction
+    @Query("SELECT * FROM weathers WHERE id = :id")
+    abstract fun getWeathersAndReportsById(id: Int): WeatherDataWithReports
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertWeather(weather: RoomWeatherData)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertWeathers(weathers: List<RoomWeatherData>)
-
 }

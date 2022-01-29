@@ -1,19 +1,15 @@
 package com.example.weatherapp.ui.list
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.databinding.WeatherItemBinding
 import com.example.weatherapp.ui.model.WeatherDataViewModel
-import java.lang.StringBuilder
-import java.text.SimpleDateFormat
+import com.example.weatherapp.util.dateformatter
 import java.util.*
 
 class WeatherListAdapter(val listener: Listener) : ListAdapter<WeatherDataViewModel, WeatherListAdapter.ViewHolder>(WeatherDiffUtil()) {
-
-    val formatter = SimpleDateFormat("yyyy.MM.dd HH:mm:ss",Locale.getDefault());
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = WeatherItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,11 +27,11 @@ class WeatherListAdapter(val listener: Listener) : ListAdapter<WeatherDataViewMo
             val temp = "Temperature: ${item.main_temp}C° $tempRange"
             val wind = "Windiness: ${item.wind_speed}Km/h (${item.wind_deg}°)"
             val cloud = "Cloudiness: ${item.cloudPercent}%"
-            val dateTime = formatter.format(Date(item.timestamp))
+            val dateTime = dateformatter.format(Date(item.timestamp))
 
             val report = StringBuilder().apply {
                 append("Report:")
-                for(report in item.reports){
+                for (report in item.reports) {
                     append(" ${report.description}")
                 }
             }.toString()

@@ -40,4 +40,8 @@ class WeatherInteractor @Inject constructor(
     suspend fun getAllWeathers(): List<WeatherDataViewModel> = withContext(Dispatchers.IO) {
         diskDataSource.getAllWeatherData().map { it.toWeatherDataViewModel() }.sortedBy { it.timestamp }
     }
+
+    suspend fun getWeatherById(id: Int): WeatherDataViewModel = withContext(Dispatchers.IO) {
+        diskDataSource.getWeatherDataById(id).toWeatherDataViewModel()
+    }
 }

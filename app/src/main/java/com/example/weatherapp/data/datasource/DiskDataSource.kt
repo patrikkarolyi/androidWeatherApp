@@ -14,6 +14,10 @@ class DiskDataSource @Inject constructor(
         return weatherDao.getAllWeathersAndReports()
     }
 
+    fun getWeatherDataById(id: Int): WeatherDataWithReports {
+        return weatherDao.getWeathersAndReportsById(id)
+    }
+
     fun insertWeatherData(data: RoomWeatherData) {
         return weatherDao.insertWeather(data)
     }
