@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherapp.databinding.ListFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.list_fragment.*
 
 @AndroidEntryPoint
 class ListFragment : Fragment(), WeatherListAdapter.Listener {
@@ -33,6 +34,7 @@ class ListFragment : Fragment(), WeatherListAdapter.Listener {
         initRecyclerView()
         viewModel.weather.observe(viewLifecycleOwner, { weather ->
             adapter.submitList(weather)
+            recyclerView.smoothScrollToPosition(weather.size)
         })
     }
 

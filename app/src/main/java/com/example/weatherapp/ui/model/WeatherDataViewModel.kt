@@ -1,15 +1,6 @@
-package com.example.weatherapp.data.datasource.model
+package com.example.weatherapp.ui.model
 
-import androidx.room.Entity
-import androidx.room.Index
-import androidx.room.PrimaryKey
-
-@Entity(
-    tableName = "Weathers",
-    indices = [Index(value = ["name"], unique = true)]
-)
-data class RoomWeatherData(
-    @PrimaryKey
+data class WeatherDataViewModel(
     val id: Int,
     val lon: Double,
     val lat: Double,
@@ -34,4 +25,5 @@ data class RoomWeatherData(
     val name: String,
     val cod: Int,
     val timestamp: Long,
+    val reports: List<ReportViewModel>
 )

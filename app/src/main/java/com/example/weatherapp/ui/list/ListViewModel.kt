@@ -2,8 +2,8 @@ package com.example.weatherapp.ui.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weatherapp.data.datasource.model.RoomWeatherData
 import com.example.weatherapp.data.interactor.WeatherInteractor
+import com.example.weatherapp.ui.model.WeatherDataViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,7 @@ class ListViewModel @Inject constructor(
 
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Main)
     private var job: Job? = null
-    val weather = MutableLiveData<List<RoomWeatherData>>()
+    val weather = MutableLiveData<List<WeatherDataViewModel>>()
 
     fun getWeatherOf(city: String) {
         job?.cancel()

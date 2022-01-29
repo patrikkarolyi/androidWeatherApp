@@ -20,6 +20,9 @@ class DiskModule {
     fun provideWeatherDao(db: WeatherDatabase): WeatherDAO = db.weatherDao()
 
     @Provides
+    fun provideReportDao(db: WeatherDatabase): ReportDAO = db.reportDao()
+
+    @Provides
     fun provideApplicationContext(@ApplicationContext context: Context): Context = context
 
     @Provides

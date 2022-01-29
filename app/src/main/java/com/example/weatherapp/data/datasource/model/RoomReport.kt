@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Reports")
 data class RoomReport(
-    @PrimaryKey
     val id: Int,
+    @PrimaryKey
     val weatherId: Int,
     val main: String,
     val description: String,

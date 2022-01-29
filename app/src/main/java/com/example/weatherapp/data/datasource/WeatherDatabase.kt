@@ -8,4 +8,5 @@ import com.example.weatherapp.data.datasource.model.RoomWeatherData
 @Database(entities = [RoomWeatherData::class,RoomReport::class], version = 1)
 abstract class WeatherDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDAO
+    abstract fun reportDao(): ReportDAO
 }
